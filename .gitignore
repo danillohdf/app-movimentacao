@@ -1,0 +1,21 @@
+# Segredos: nunca commitar
+.env
+.env.*
+!.env.example
+
+# Dependências e build
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+
+# Supabase local
+supabase/.temp/
+supabase/.branches/
+
+# Sistema / editores
+.DS_Store
+*.log
+.vercel
