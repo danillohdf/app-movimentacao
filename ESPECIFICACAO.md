@@ -21,6 +21,16 @@ Volume aproximado (para dimensionar):
 - Movimentações por mês: [PREENCHER]
 - Reembolsos por dia: [PREENCHER] | Pagamentos por mês: [PREENCHER]
 
+## Decisões já tomadas (31/10/2026)
+- Login por e-mail (todo usuário tem e-mail vinculado, que também serve para notificações).
+  O e-mail traz um código de 6 dígitos e um link; o código é o caminho principal porque funciona
+  melhor no app instalado no celular. Acesso só por convite do admin (ninguém se cadastra sozinho).
+- Montador só consulta os roteiros nesta primeira versão (check-in pode vir depois).
+- Não há perfil financeiro separado: o admin marca como pago. No futuro, o status "Pago" deve vir
+  de uma integração com o sistema de pagamentos atual (EK-BPO); o banco já guarda um campo de
+  referência externa para isso.
+- Vencimentos podem cair em sábado, domingo e feriado: não há cálculo de dia útil nem lista de feriados.
+
 ## Objetivo
 Um app geral de movimentação com 3 módulos:
 1. Roteiros: montadores e coordenadores consultam para onde vão, quando e com qual estrutura.
@@ -33,14 +43,12 @@ Mais um painel administrativo para mim (e meu chefe) acompanhar, aprovar e expor
 - Coordenador: vê os roteiros dos parques dele, lança pagamentos e reembolsos da equipe dele,
   acompanha o status do que lançou. NÃO vê nada de outro coordenador.
 - Montador: só consulta os roteiros em que está escalado (somente leitura).
-  [PREENCHER: montador também precisa subir algo? Ex.: check-in de chegada com foto/localização.]
-- [PREENCHER: existe alguém do financeiro que só marca "pago" e sobe comprovante? Se sim, criar perfil.]
+- Sem perfil financeiro separado (ver "Decisões já tomadas").
 
 As permissões precisam ser garantidas no servidor/banco, não só escondidas na tela
 (detalhes na seção Segurança).
 
-Login: montadores e ajudantes não têm necessariamente conta Google.
-[PREENCHER: preferência entre login por telefone + PIN, link mágico por WhatsApp/e-mail ou conta Google.]
+Login: por e-mail com código de 6 dígitos (ver "Decisões já tomadas"). Ajudantes não fazem login.
 O admin cadastra o usuário, consegue resetar o acesso e desativar o usuário.
 
 ## Módulo 1: Roteiros
@@ -75,9 +83,8 @@ CPF/CNPJ do favorecido, forma de pagamento (Pix/boleto/transferência) com os da
 vencimento, anexos (boleto, NF, orçamento; foto ou PDF tirado direto do celular), observação.
 
 Regras de negócio (IMPORTANTES, não altere sem me perguntar):
-- A parcela de desmontagem vence no dia útil anterior ao início da desmontagem.
-  [PREENCHER: aqui "dia útil" exclui sábado, domingo e feriados? Quais feriados contam:
-  só nacionais ou também os da cidade do shopping?]
+- A parcela de desmontagem vence no dia anterior ao início da desmontagem (dia corrido:
+  pode cair em sábado, domingo ou feriado, porque a empresa paga em qualquer dia).
 - O hotel de montagem é pago 1 dia antes do início da montagem (dia corrido, pode cair em fim de semana).
 - O hotel de DESMONTAGEM não é lançado separado: ele já vem embutido na parcela de desmontagem.
   O app deve BLOQUEAR o lançamento de hotel de desmontagem avulso e explicar o motivo na tela.
@@ -178,7 +185,7 @@ Dados
 Uploads
 15. Buckets privados no Supabase Storage, acessados por URL assinada com validade curta.
     Políticas de storage por perfil (coordenador só vê os anexos dele).
-16. Aceitar só JPG, PNG, HEIC e PDF, com tamanho máximo [PREENCHER: ex. 10 MB], validando o tipo
+16. Aceitar só JPG, PNG, HEIC e PDF, com tamanho máximo 10 MB, validando o tipo
     real do arquivo e não só a extensão. Renomear arquivos no upload (sem usar o nome original).
 
 Infraestrutura
