@@ -19,3 +19,7 @@ supabase/.branches/
 .DS_Store
 *.log
 .vercel
+
+# Next.js
+next-env.d.ts
+*.tsbuildinfo
